@@ -30,8 +30,30 @@ select *
 from employees as e
 where e.first_name ='Hercules' and e.last_name like 'B%';
 
---6
+--6 subquery?
+select e.emp_no,e.last_name, e.first_name, d.dept_name
+from employees as e
+join dept_emp as de
+on e.emp_no = de.emp_no
+join (
+	select * from departments
+	where dept_name = 'Sales' 
+)as d
+on de.dept_no=d.dept_no;
 
+--7 subqyer?
+select e.emp_no,e.last_name, e.first_name, d.dept_name
+from employees as e
+join dept_emp as de
+on e.emp_no = de.emp_no
+join (
+	select * from departments
+	where dept_name = 'Sales' or dept_name = 'Development'
+)as d
+on de.dept_no=d.dept_no;
 
-
-
+--8
+select e.last_name, count(e.last_name) as LastNameCount
+from employees as e
+group by e.last_name
+order by count(e.last_name) desc
